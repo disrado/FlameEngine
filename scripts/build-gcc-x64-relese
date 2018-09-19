@@ -1,0 +1,65 @@
+#!/bin/sh
+
+# Configure build variables.
+BASE_DIR=$(dirname "$0")
+BUILD_MODE=Release
+BUILD_ARCH=x64
+BUILD_DIR=${BASE_DIR}/../build/gcc-${BUILD_ARCH}-${BUILD_MODE}
+ENABLE_TESTING=TRUE
+ENABLE_CLANG_TIDY=FALSE
+
+# Color configuration.
+COLOR_OFF='\033[0m'
+COLOR_RED='\033[0;31m'
+COLOR_GREEN='\033[0;32m'
+COLOR_BLUE='\033[0;34m'
+
+PrintInfoMsg() {
+	printf "${COLOR_GREEN} >> $1 ${COLOR_OFF}\n"
+}
+
+PrintErrorMsg() {
+	printf "${COLOR_RED} >> $1 ${COLOR_OFF}\n"
+}
+
+CheckError() {
+	if [ $? -eq 1 ]; then
+		PrintErrorMsg "$1"
+		exit 1
+	fi
+}
+
+PrintInfoMsg "Creating a build directory..."
+mkdir -p ${BUILD_DIR}
+CheckError "Failed to make the build directory."
+
+cd ${BUILD_DIR}
+
+PrintInfoMsg "[CMake] Generating the project..."
+cmake \
+	-G "Unix Makefiles" \
+	-DCMAKE_BUILD_TYPE:STRING=${BUILD_MODE} \
+	-DENABLE_TESTING:BOOL=${ENABLE_TESTING} \
+	-DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=${ENABLE_CLANG_TIDY} \
+	-DENABLE_CLANG_TIDY:BOOL=${ENABLE_CLANG_TIDY} \
+	-Wno-dev \
+	../..
+CheckError "[CMake] Failed to generate the project."
+
+CPU_COUNT=`nproc --all`
+
+PrintInfoMsg "[Make] Building the project..."
+make -j $CPU_COUNT
+
+PrintInfoMsg "Project has been built successfully!"
+
+if [ "$ENABLE_TESTING" = TRUE ]; then
+	PrintInfoMsg "Running tests..."
+	ctest --extra-verbose --parallel $CPU_COUNT
+	CheckError "Failed to pass some test cases."
+fi
+
+if [ "${ENABLE_CLANG_TIDY}" = TRUE ]; then
+	PrintInfoMsg "[Clang-Tidy] Performing code analysis..."
+	make tidy
+fi
