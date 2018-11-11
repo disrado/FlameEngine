@@ -1,8 +1,6 @@
-#include "../pch.hpp"
+#include "pch.hpp"
 
 #include "db/workers/BaseWorker.hpp"
-
-#include <iostream>
 
 
 namespace flm::db
@@ -10,21 +8,37 @@ namespace flm::db
 
 
 BaseWork::BaseWork(ConnectionUnitShPtr connection)
-	: m_connection{ connection }
 {
+	Init((connection));
+}
+
+
+BaseWork::BaseWork(ConnectionUnitUnPtr connection)
+{
+	Init(std::move(connection));
+}
+
+
+void BaseWork::Init(ConnectionUnitShPtr connection)
+{
+	m_connection = connection;
+
 	try
 	{
 		m_work = std::make_shared<pqxx::work>(*(connection->GetConnection()->GetHandle()));
 	}
-	catch(const pqxx::broken_connection& ex)
+	catch (const pqxx::broken_connection& ex)
 	{
-		// TODO: replace by log.
-		std::cout << "Connection was broken" << std::endl;
+		lg::LOG(lg::Severity::error) << "Db connection was broken" << std::endl;
+	}
+	catch (...)
+	{
+		lg::LOG(lg::Severity::error) << "Db work creation error" << std::endl;
 	}
 }
 
 
-Result BaseWork::Exec(const std::string& query) const
+Result BaseWork::Execute(const std::string& query) const
 {
 	return m_work->exec(query);
 }
@@ -40,6 +54,5 @@ std::string BaseWork::Esc(const std::string& str) const
 {
 	return m_work->esc(str);
 }
-
 
 }	// namespace flm::db

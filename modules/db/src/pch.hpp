@@ -16,13 +16,6 @@
 
 
 //
-// libpqxx
-//
-
-#include <pqxx/pqxx>
-
-
-//
 // fmt
 //
 
@@ -31,4 +24,6 @@
 
 // extern
 
+#include <pqxx/pqxx>
 #include <timer/Timer.hpp>
+#include <logger/Logger.hpp>

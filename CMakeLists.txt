@@ -13,6 +13,7 @@ conan_basic_setup()
 set(EXTERNAL_DIR ${CMAKE_SOURCE_DIR}/extern)
 
 add_subdirectory(extern/libpqxx)
+add_subdirectory(extern/logger)
 add_subdirectory(extern/timer)
 add_subdirectory(modules/db)
 add_subdirectory(modules/graphics)

@@ -40,14 +40,16 @@ target_link_libraries(${PROJECT_NAME}
 	PUBLIC
 		${CONAN_LIBS}
 		pqxx_shared
-		libtimer
+		logger
+		timer
 )
 
 target_include_directories(${PROJECT_NAME}
 	PUBLIC
 		${CONAN_LIBS}
-		${EXTERNAL_DIR}/libpqxx/include
-		include
+		${PROJECT_SOURCE_DIR}/include
+	PRIVATE
+		${PROJECT_SOURCE_DIR}/src
 )
 
 set(COTIRE_MINIMUM_NUMBER_OF_TARGET_SOURCES 1)

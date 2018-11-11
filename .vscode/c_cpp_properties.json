@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/modules/db/src/pch.h",
+                "${workspaceFolder}/extern/libpqxx/include",
+                "/home/nik/.conan/data/fmt/5.2.0/bincrafters/stable/package/56e0cf6d16ee57367a0661ab743f4e43b29223f8/include"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}
