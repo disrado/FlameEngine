@@ -1,7 +1,7 @@
 #pragma once
 
 #include "db/Types.hpp"
-#include "db/ConnectionPool.hpp"
+#include "db/Pool.hpp"
 
 
 namespace flm::db
@@ -11,18 +11,18 @@ namespace flm::db
 //
 // Provides access to database
 //
-class BaseWork
+class Worker
 {
 	//
 	// Construction and destruction.
 	//
 public:
 	// connection - Shared pointer to RAII object which provides connection to database.
-	BaseWork(ConnectionUnitShPtr connection);
+	Worker(ConnUnitShPtr connection);
 	// connection - Unique pointer to RAII object which provides connection to database.
-	BaseWork(ConnectionUnitUnPtr connection);
+	Worker(ConnUnitUnPtr connection);
 	// Virtual destructor.
-	virtual ~BaseWork() = default;
+	virtual ~Worker() = default;
 
 	//
 	// Protected interface.
@@ -40,14 +40,14 @@ protected:
 	//
 private:
 	// connection - RAII object which provides connection to database.
-	void Init(ConnectionUnitShPtr connection);
+	void Init(ConnUnitShPtr connection);
 
 	//
 	// Private data members.
 	//
 private:
 	// RAII object which provides connection to database.
-	ConnectionUnitShPtr m_connection;
+	ConnUnitShPtr m_connection;
 	// Database api worker.
 	WorkShPtr m_work;
 };

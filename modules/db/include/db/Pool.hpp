@@ -12,8 +12,8 @@ using ConnectionShPtr = std::shared_ptr<Connection>;
 
 
 class ConnectionUnit;
-using ConnectionUnitShPtr = std::shared_ptr<ConnectionUnit>;
-using ConnectionUnitUnPtr = std::unique_ptr<ConnectionUnit>;
+using ConnUnitShPtr = std::shared_ptr<ConnectionUnit>;
+using ConnUnitUnPtr = std::unique_ptr<ConnectionUnit>;
 
 
 //
@@ -21,23 +21,14 @@ using ConnectionUnitUnPtr = std::unique_ptr<ConnectionUnit>;
 //
 class Connection
 {
-	//
-	// Constraction and destruction.
-	//
 public:
 	// config - config for database connection.
 	explicit Connection(const std::string& config);
 
-	//
-	// Public interface.
-	//
 public:
 	// Returns raw database connection handle.
 	HandleShPtr GetHandle() const;
 
-	//
-	// Private data members.
-	//
 private:
 	// Raw database connection handle.
 	HandleShPtr m_handle;
@@ -49,15 +40,9 @@ private:
 //
 class ConnectionUnit
 {
-	//
-	// Public types.
-	//
 public:
 	using ExpireCallback = std::function<void()>;
 
-	//
-	// Constraction and destruction.
-	//
 public:
 	// connection - database connection.
 	// callback - function which will be called when object will be destructing.
@@ -75,16 +60,10 @@ public:
 	// Copy assignment is not allowed.
 	ConnectionUnit& operator=(const ConnectionUnit&) = delete;
 
-	//
-	// Public interface.
-	//
 public:
-	// Returns raw database connection.
-	ConnectionShPtr GetConnection() const;
+	// Returns raw database connection handle.
+	HandleShPtr GetHandle() const;
 
-	//
-	// Private data members.
-	//
 private:
 	// Connection to database.
 	ConnectionShPtr m_connection;
@@ -96,27 +75,18 @@ private:
 //
 // Stores database connections and serves as a factory of ConnectionUnits.
 //
-class ConnectionPool
+class Pool
 {
-	//
-	// Public interface.
-	//
 public:
-	// Returns instance of ConnectionPool.
-	ConnectionPool& Instance() const;
+	// Returns instance of Pool.
+	Pool& Instance() const;
 	// Returns RAII object for with database connection.
-	ConnectionUnitUnPtr Acquire();
+	ConnUnitUnPtr Acquire();
 
-	//
-	// Constraction and destruction.
-	//
 public:
 	// minPoolSize - min size of conetcion pool.
-	explicit ConnectionPool(std::size_t minPoolSize);
+	explicit Pool(std::size_t minPoolSize);
 
-	//
-	// Private methods.
-	//
 private:
 	// Creates a new database connection.
 	ConnectionShPtr CreateConnection(const std::string& config);
@@ -125,9 +95,6 @@ private:
 	// Frees connection for using it again.
 	void MakeConnectionFree(const ConnectionShPtr connection);
 
-	//
-	// Private data members.
-	//
 private:
 	// Config for database connection.
 	std::string m_config;
@@ -138,9 +105,9 @@ private:
 	// Mutes for thread safe working with pool.
 	std::mutex m_mtx;
 	// Connections which using for now.
-	std::list<ConnectionShPtr> m_usedConnections;
+	std::deque<ConnectionShPtr> m_used;
 	// Connections which free for now.
-	std::list<ConnectionShPtr> m_freeConnections;
+	std::deque<ConnectionShPtr> m_free;
 };
 
 

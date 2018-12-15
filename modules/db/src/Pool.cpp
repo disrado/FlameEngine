@@ -1,6 +1,6 @@
 #include "pch.hpp"
 
-#include "db/ConnectionPool.hpp"
+#include "db/Pool.hpp"
 
 
 namespace flm::db
@@ -11,9 +11,10 @@ namespace
 
 
 static const std::size_t ConnectionsLifetime{ 60 };
+static const std::size_t MinPoolSize{ 10 };
 
 
-std::string GetConfig()
+std::string GetDbConfig()
 {
 	return fmt::format(
 		"host={} port={} user={} password={} dbname={} connect_timeout=10",
@@ -53,37 +54,36 @@ ConnectionUnit::~ConnectionUnit()
 }
 
 
-ConnectionShPtr ConnectionUnit::GetConnection() const
+HandleShPtr ConnectionUnit::GetHandle() const
 {
-	return m_connection;
+	return m_connection->GetHandle();
 }
 
 
-ConnectionPool& ConnectionPool::Instance() const
+Pool& Pool::Instance() const
 {
-	static ConnectionPool instance{ 10 };
+	static Pool instance{ MinPoolSize };
 	return instance;
 }
 
 
-ConnectionUnitUnPtr ConnectionPool::Acquire()
+ConnUnitUnPtr Pool::Acquire()
 {
 	std::lock_guard{ m_mtx };
 
 	ConnectionShPtr connection{ nullptr };
 
-	if (m_freeConnections.empty())
+	if (m_free.empty())
 	{
 		connection = CreateConnection(m_config);
 	}
 	else
 	{
-		connection = m_freeConnections.back();
-		m_freeConnections.pop_back();
-		
+		connection = m_free.back();
+		m_free.pop_back();
 	}
 	
-	m_usedConnections.push_back(connection);
+	m_used.push_back(connection);
 
 	return std::make_unique<ConnectionUnit>(connection, [this, connection] {
 		this->MakeConnectionFree(connection);
@@ -91,13 +91,13 @@ ConnectionUnitUnPtr ConnectionPool::Acquire()
 }
 
 
-ConnectionPool::ConnectionPool(std::size_t minPoolSize)
-	: m_config{ GetConfig() }
+Pool::Pool(std::size_t minPoolSize)
+	: m_config{ GetDbConfig() }
 	, m_minPoolSize{ minPoolSize }
 	, m_timer{ nullptr }
 {
-	for(std::size_t i{ 0 }; i < m_minPoolSize; ++i) {
-		m_freeConnections.push_back(CreateConnection(m_config));
+	for (std::size_t i{ 0 }; i < m_minPoolSize; ++i) {
+		m_free.push_back(CreateConnection(m_config));
 	}
 
 	m_timer = std::make_unique<timer::Timer>(
@@ -108,31 +108,31 @@ ConnectionPool::ConnectionPool(std::size_t minPoolSize)
 }
 
 
-ConnectionShPtr ConnectionPool::CreateConnection(const std::string& config)
+ConnectionShPtr Pool::CreateConnection(const std::string& config)
 {
 	return std::make_shared<Connection>(config);
 }
 
 
-void ConnectionPool::RemoveUnused()
+void Pool::RemoveUnused()
 {
 	std::lock_guard{ m_mtx };
 
-	if (m_freeConnections.size() > m_minPoolSize) {
-		m_freeConnections.erase(m_freeConnections.begin(), m_freeConnections.end());
+	if (m_free.size() > m_minPoolSize) {
+		m_free.erase(m_free.begin() + m_minPoolSize, m_free.end());
 	}
 }
 
 
-void ConnectionPool::MakeConnectionFree(const ConnectionShPtr connection)
+void Pool::MakeConnectionFree(const ConnectionShPtr connection)
 {
 	std::lock_guard{ m_mtx };
 
-	const auto itr{ std::find(m_usedConnections.begin(), m_usedConnections.begin(), connection) };
+	const auto itr{ std::find(m_used.begin(), m_used.begin(), connection) };
 
-	if (itr != m_usedConnections.end()) {
-		m_usedConnections.erase(itr);
-		m_freeConnections.push_back(*itr);
+	if (itr != m_used.end()) {
+		m_used.erase(itr);
+		m_free.push_back(*itr);
 	}
 }
 

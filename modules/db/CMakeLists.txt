@@ -5,11 +5,8 @@ project(db LANGUAGES CXX)
 include(cotire)
 
 set(${PROJECT_NAME}_SOURCES
-	src/ConnectionPool.cpp
-)
-
-set(${PROJECT_NAME}_WORKERS_SOURCES
-	src/workers/BaseWorker.cpp
+	src/Pool.cpp
+	src/Worker.cpp
 )
 
 set(${PROJECT_NAME}_MISC
