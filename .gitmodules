@@ -1,9 +1,0 @@
-[submodule "extern/logger"]
-	path = extern/logger
-	url = https://github.com/disrado/logger.git
-[submodule "extern/timer"]
-	path = extern/timer
-	url = https://github.com/disrado/timer.git
-[submodule "extern/libpqxx"]
-	path = extern/libpqxx
-	url = https://github.com/akazantsev/libpqxx.git
