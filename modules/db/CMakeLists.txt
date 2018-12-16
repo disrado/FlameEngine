@@ -19,7 +19,7 @@ add_library(${PROJECT_NAME} SHARED
 		${${PROJECT_NAME}_MISC}
 )
 
-add_library(insta::db ALIAS ${PROJECT_NAME})
+add_library(flame::db ALIAS ${PROJECT_NAME})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
