@@ -44,9 +44,8 @@ target_link_libraries(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME}
 	PUBLIC
 		${CONAN_LIBS}
-		${PROJECT_SOURCE_DIR}/include
-	PRIVATE
-		${PROJECT_SOURCE_DIR}/src
+		include
+		src
 )
 
 set(COTIRE_MINIMUM_NUMBER_OF_TARGET_SOURCES 1)

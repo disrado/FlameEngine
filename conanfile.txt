@@ -1,9 +1,6 @@
 [requires]
-fmt/5.2.0@bincrafters/stable
-gtest/1.8.0@bincrafters/stable
 
 [options]
-gtest:shared=False
 
 [generators]
 cmake

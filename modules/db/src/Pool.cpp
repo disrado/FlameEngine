@@ -16,14 +16,8 @@ static const std::size_t MinPoolSize{ 10 };
 
 std::string GetDbConfig()
 {
-	return fmt::format(
-		"host={} port={} user={} password={} dbname={} connect_timeout=10",
-		"localhost",
-		"5432",
-		"postgres",
-		"postgres",
-		"engine"
-	);
+	return
+		"host=localhost port=5432 user=postgres password=postgres dbname=engine connect_timeout=10";
 }
 
 

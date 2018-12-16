@@ -29,11 +29,11 @@ void Worker::Init(ConnUnitShPtr connection)
 	}
 	catch (const pqxx::broken_connection& ex)
 	{
-		lg::LOG(lg::Severity::error) << "Db connection was broken" << std::endl;
+		throw std::runtime_error{ "Db connection was broken" };
 	}
 	catch (...)
 	{
-		lg::LOG(lg::Severity::error) << "Worker creation error" << std::endl;
+		throw std::runtime_error{ "Worker creation error" };
 	}
 }
 
