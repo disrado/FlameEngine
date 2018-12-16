@@ -19,7 +19,7 @@ add_library(${PROJECT_NAME} SHARED
 		${${PROJECT_NAME}_MISC}
 )
 
-add_library(insta::db ALIAS ${PROJECT_NAME})
+add_library(flame::db ALIAS ${PROJECT_NAME})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
@@ -44,9 +44,8 @@ target_link_libraries(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME}
 	PUBLIC
 		${CONAN_LIBS}
-		${PROJECT_SOURCE_DIR}/include
-	PRIVATE
-		${PROJECT_SOURCE_DIR}/src
+		include
+		src
 )
 
 set(COTIRE_MINIMUM_NUMBER_OF_TARGET_SOURCES 1)
