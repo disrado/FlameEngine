@@ -20,5 +20,4 @@ add_subdirectory(modules/system)
 
 if (ENABLE_TESTING)
 	enable_testing()
-	add_subdirectory(tests)
 endif ()
