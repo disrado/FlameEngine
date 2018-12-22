@@ -1,6 +1,6 @@
 #pragma once
 
-#include "utils/Aliases.hpp"
+#include "Aliases.hpp"
 
 
 namespace flm::utils

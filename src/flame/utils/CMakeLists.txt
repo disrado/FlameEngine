@@ -1,25 +1,31 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(db LANGUAGES CXX)
+project(utils LANGUAGES CXX)
 
 include(cotire)
 
+set(HEADERS_DIR ${CMAKE_SOURCE_DIR}/include/flame)
+set(SOURCES_DIR ${CMAKE_SOURCE_DIR}/src/flame)
+
+set(${PROJECT_NAME}_HEADERS
+	${HEADERS_DIR}/utils/Timer.hpp
+)
+
 set(${PROJECT_NAME}_SOURCES
-	src/Pool.cpp
-	src/Worker.cpp
+	${SOURCES_DIR}/utils/Timer.cpp
 )
 
 set(${PROJECT_NAME}_MISC
-	src/pch.hpp
+	${SOURCES_DIR}/utils/pch.hpp
 )
 
 add_library(${PROJECT_NAME} SHARED
+		${${PROJECT_NAME}_HEADERS}
 		${${PROJECT_NAME}_SOURCES}
-		${${PROJECT_NAME}_WORKERS_SOURCES}
 		${${PROJECT_NAME}_MISC}
 )
 
-add_library(flame::db ALIAS ${PROJECT_NAME})
+add_library(flame::utils ALIAS ${PROJECT_NAME})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
@@ -33,19 +39,13 @@ target_compile_options(${PROJECT_NAME}
 			-Wall -Wextra -Werror -Wpedantic -pedantic-errors -pipe>
 )
 
-target_link_libraries(${PROJECT_NAME}
-	PUBLIC
-		${CONAN_LIBS}
-		pqxx_shared
-		flame::utils
-)
-
 target_include_directories(${PROJECT_NAME}
 	PUBLIC
-		${CONAN_LIBS}
-		include
+		${HEADERS_DIR}
 )
 
 set(COTIRE_MINIMUM_NUMBER_OF_TARGET_SOURCES 1)
-set_target_properties(${PROJECT_NAME} PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "src/pch.hpp")
+set_target_properties(${PROJECT_NAME}
+	PROPERTIES
+		COTIRE_CXX_PREFIX_HEADER_INIT ${SOURCES_DIR}/utils/pch.hpp)
 cotire(${PROJECT_NAME})

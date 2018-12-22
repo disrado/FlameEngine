@@ -5,14 +5,24 @@ project(system LANGUAGES CXX)
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 
-file(GLOB_RECURSE ${PROJECT_NAME}_SOURCES 
-    "src/*.cpp"
-    "src/*.inl"
+set(HEADERS_DIR ${CMAKE_SOURCE_DIR}/include/flame)
+set(SOURCES_DIR ${CMAKE_SOURCE_DIR}/src/flame)
+
+
+set(${PROJECT_NAME}_HEADERS
+    ${HEADERS_DIR}/system/Vector2.hpp
+    ${HEADERS_DIR}/system/Vector2.inl
+)
+
+
+set(${PROJECT_NAME}_SOURCES
+    ${SOURCES_DIR}/system/main.cpp
 )
 
 add_library(${PROJECT_NAME}
     SHARED
         ${${PROJECT_NAME}_SOURCES}
+        ${${PROJECT_NAME}_HEADERS}
 )
 
 target_link_libraries(${PROJECT_NAME}
