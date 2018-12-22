@@ -1,56 +1,35 @@
 #pragma once
 
-#include "db/Types.hpp"
-#include "db/Pool.hpp"
+#include "db/Aliases.hpp"
 
 
 namespace flm::db
 {
 
 
-//
+class ConnUnit;
+
+
 // Provides access to database
-//
 class Worker
 {
-	//
-	// Construction and destruction.
-	//
 public:
-	// connection - Shared pointer to RAII object which provides connection to database.
-	Worker(ConnUnitShPtr connection);
-	// connection - Unique pointer to RAII object which provides connection to database.
-	Worker(ConnUnitUnPtr connection);
-	// Virtual destructor.
+	Worker(ShPtr<ConnUnit> connection);
+	Worker(UnPtr<ConnUnit> connection);
 	virtual ~Worker() = default;
 
-	//
-	// Protected interface.
-	//
 protected:
-	// Executes sql query.
-	Result Execute(const std::string& query) const;
-	// Commits the database transaction.
+	DbResult Execute(const std::string& query) const;
 	void Commit() const;
-	// Transforms string literal to sql literal.
-	std::string Esc(const std::string& str) const;
+	std::string Escape(const std::string& str) const;
 	
-	//
-	// Private methods.
-	//
 private:
-	// connection - RAII object which provides connection to database.
-	void Init(ConnUnitShPtr connection);
+	void Init(ShPtr<ConnUnit> connection);
 
-	//
-	// Private data members.
-	//
 private:
-	// RAII object which provides connection to database.
-	ConnUnitShPtr m_connection;
-	// Database api worker.
-	WorkShPtr m_work;
+	ShPtr<ConnUnit> m_connection;
+	ShPtr<pqxx::work> m_work;
 };
 
 
-}	// namespace flm::db
+} // namespace flm::db

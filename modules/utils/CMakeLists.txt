@@ -1,12 +1,15 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(db LANGUAGES CXX)
+project(utils LANGUAGES CXX)
 
 include(cotire)
 
+set(${PROJECT_NAME}_HEADERS
+	include/utils/Timer.hpp
+)
+
 set(${PROJECT_NAME}_SOURCES
-	src/Pool.cpp
-	src/Worker.cpp
+	src/Timer.cpp
 )
 
 set(${PROJECT_NAME}_MISC
@@ -14,12 +17,12 @@ set(${PROJECT_NAME}_MISC
 )
 
 add_library(${PROJECT_NAME} SHARED
+		${${PROJECT_NAME}_HEADERS}
 		${${PROJECT_NAME}_SOURCES}
-		${${PROJECT_NAME}_WORKERS_SOURCES}
 		${${PROJECT_NAME}_MISC}
 )
 
-add_library(flame::db ALIAS ${PROJECT_NAME})
+add_library(flame::utils ALIAS ${PROJECT_NAME})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
@@ -33,16 +36,8 @@ target_compile_options(${PROJECT_NAME}
 			-Wall -Wextra -Werror -Wpedantic -pedantic-errors -pipe>
 )
 
-target_link_libraries(${PROJECT_NAME}
-	PUBLIC
-		${CONAN_LIBS}
-		pqxx_shared
-		flame::utils
-)
-
 target_include_directories(${PROJECT_NAME}
 	PUBLIC
-		${CONAN_LIBS}
 		include
 )
 

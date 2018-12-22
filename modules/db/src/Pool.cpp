@@ -5,67 +5,70 @@
 
 namespace flm::db
 {
-
 namespace
 {
 
 
-static const std::size_t ConnectionsLifetime{ 60 };
-static const std::size_t MinPoolSize{ 10 };
+static const size_t ConnectionsLifetime{ 60 };
+static const size_t MinPoolSize{ 10 };
 
 
 std::string GetDbConfig()
 {
 	return
-		"host=localhost port=5432 user=postgres password=postgres dbname=engine connect_timeout=10";
+		"host=localhost "
+		"port=5432 "
+		"user=postgres "
+		"password=postgres "
+		"dbname=engine "
+		"connect_timeout=10";
 }
 
 
-}	// local namespace 
+} // local namespace
 
 
 Connection::Connection(const std::string& config)
-	: m_handle{ std::make_shared<Handle>(config) }
+	: m_connection{ std::make_shared<DbConnection>(config) }
 {}
 
 
-HandleShPtr Connection::GetHandle() const
+ShPtr<DbConnection> Connection::Get() const
 {
-	return m_handle;
+	return m_connection;
 }
 
 
-ConnectionUnit::ConnectionUnit(ConnectionShPtr connection, ExpireCallback callback)
+ConnUnit::ConnUnit(ShPtr<Connection> connection, func<void()> callback)
 	: m_connection{ connection }
 	, m_callback{ callback }
-{
-}
+{}
 
 
-ConnectionUnit::~ConnectionUnit()
+ConnUnit::~ConnUnit()
 {
 	m_callback();
 }
 
 
-HandleShPtr ConnectionUnit::GetHandle() const
+ShPtr<DbConnection> ConnUnit::Get() const
 {
-	return m_connection->GetHandle();
+	return m_connection->Get();
 }
 
 
-Pool& Pool::Instance() const
+Pool& Pool::Inst() const
 {
 	static Pool instance{ MinPoolSize };
 	return instance;
 }
 
 
-ConnUnitUnPtr Pool::Acquire()
+UnPtr<ConnUnit> Pool::Acquire()
 {
 	std::lock_guard{ m_mtx };
 
-	ConnectionShPtr connection{ nullptr };
+	ShPtr<Connection> connection{ nullptr };
 
 	if (m_free.empty())
 	{
@@ -79,30 +82,30 @@ ConnUnitUnPtr Pool::Acquire()
 	
 	m_used.push_back(connection);
 
-	return std::make_unique<ConnectionUnit>(connection, [this, connection] {
-		this->MakeConnectionFree(connection);
+	return std::make_unique<ConnUnit>(connection, [this, connection] {
+		this->Release(connection);
 	});
 }
 
 
-Pool::Pool(std::size_t minPoolSize)
+Pool::Pool(size_t minPoolSize)
 	: m_config{ GetDbConfig() }
 	, m_minPoolSize{ minPoolSize }
 	, m_timer{ nullptr }
 {
-	for (std::size_t i{ 0 }; i < m_minPoolSize; ++i) {
+	for (size_t i{ 0 }; i < m_minPoolSize; ++i) {
 		m_free.push_back(CreateConnection(m_config));
 	}
 
-	m_timer = std::make_unique<timer::Timer>(
-		timer::Timer::Seconds{ ConnectionsLifetime },
+	m_timer = std::make_unique<utils::Timer>(
+		Seconds{ ConnectionsLifetime },
 		[this] { this->RemoveUnused(); }
 	);
 	m_timer->Start();
 }
 
 
-ConnectionShPtr Pool::CreateConnection(const std::string& config)
+ShPtr<Connection> Pool::CreateConnection(const std::string& config)
 {
 	return std::make_shared<Connection>(config);
 }
@@ -118,17 +121,18 @@ void Pool::RemoveUnused()
 }
 
 
-void Pool::MakeConnectionFree(const ConnectionShPtr connection)
+void Pool::Release(const ShPtr<Connection> connection)
 {
 	std::lock_guard{ m_mtx };
 
-	const auto itr{ std::find(m_used.begin(), m_used.begin(), connection) };
+	const auto itr{ std::find(m_used.begin(), m_used.end(), connection) };
 
-	if (itr != m_used.end()) {
-		m_used.erase(itr);
+	if (itr != m_used.end())
+	{
 		m_free.push_back(*itr);
+		m_used.erase(itr);
 	}
 }
 
 
-}	// namespace flm::db
+} // namespace flm::db
