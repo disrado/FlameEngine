@@ -5,7 +5,7 @@ project(db LANGUAGES CXX)
 include(cotire)
 
 set(HEADERS_DIR ${CMAKE_SOURCE_DIR}/include/flame)
-set(SOURCES_DIR ${CMAKE_SOURCE_DIR}/src/flame)
+set(SOURCES_DIR ${CMAKE_CURRENT_LIST_DIR}/)
 
 set(${PROJECT_NAME}_HEADERS
 	${HEADERS_DIR}/db/Aliases.hpp
@@ -14,12 +14,12 @@ set(${PROJECT_NAME}_HEADERS
 )
 
 set(${PROJECT_NAME}_SOURCES
-	${SOURCES_DIR}/db/Pool.cpp
-	${SOURCES_DIR}/db/Worker.cpp
+	${SOURCES_DIR}/Pool.cpp
+	${SOURCES_DIR}/Worker.cpp
 )
 
 set(${PROJECT_NAME}_MISC
-	${SOURCES_DIR}/db/pch.hpp
+	${SOURCES_DIR}/pch.hpp
 )
 
 add_library(${PROJECT_NAME} SHARED
@@ -58,5 +58,5 @@ target_include_directories(${PROJECT_NAME}
 set(COTIRE_MINIMUM_NUMBER_OF_TARGET_SOURCES 1)
 set_target_properties(${PROJECT_NAME}
 	PROPERTIES
-		COTIRE_CXX_PREFIX_HEADER_INIT ${SOURCES_DIR}/db/pch.hpp)
+		COTIRE_CXX_PREFIX_HEADER_INIT ${SOURCES_DIR}/pch.hpp)
 cotire(${PROJECT_NAME})
