@@ -4,13 +4,13 @@ project(db LANGUAGES CXX)
 
 include(cotire)
 
-set(HEADERS_DIR ${CMAKE_SOURCE_DIR}/include/flame)
+set(HEADERS_DIR ${CMAKE_CURRENT_LIST_DIR}/../../../include)
 set(SOURCES_DIR ${CMAKE_CURRENT_LIST_DIR}/)
 
 set(${PROJECT_NAME}_HEADERS
-	${HEADERS_DIR}/db/Aliases.hpp
-	${HEADERS_DIR}/db/Pool.hpp
-	${HEADERS_DIR}/db/Worker.hpp
+	${HEADERS_DIR}/flame/db/Aliases.hpp
+	${HEADERS_DIR}/flame/db/Pool.hpp
+	${HEADERS_DIR}/flame/db/Worker.hpp
 )
 
 set(${PROJECT_NAME}_SOURCES

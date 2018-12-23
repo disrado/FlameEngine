@@ -4,11 +4,11 @@ project(utils LANGUAGES CXX)
 
 include(cotire)
 
-set(HEADERS_DIR ${CMAKE_SOURCE_DIR}/include/flame)
+set(HEADERS_DIR ${CMAKE_CURRENT_LIST_DIR}/../../../include)
 set(SOURCES_DIR ${CMAKE_CURRENT_LIST_DIR}/)
 
 set(${PROJECT_NAME}_HEADERS
-	${HEADERS_DIR}/utils/Timer.hpp
+	${HEADERS_DIR}/flame/utils/Timer.hpp
 )
 
 set(${PROJECT_NAME}_SOURCES
