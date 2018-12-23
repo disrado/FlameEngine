@@ -1,6 +1,6 @@
 #pragma once
 
-#include "db/Aliases.hpp"
+#include <flame/db/Aliases.hpp>
 
 
 namespace flm::db
