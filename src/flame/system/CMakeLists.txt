@@ -6,7 +6,7 @@ find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 
 set(HEADERS_DIR ${CMAKE_SOURCE_DIR}/include/flame)
-set(SOURCES_DIR ${CMAKE_SOURCE_DIR}/src/flame)
+set(SOURCES_DIR ${CMAKE_CURRENT_LIST_DIR}/)
 
 
 set(${PROJECT_NAME}_HEADERS
@@ -16,7 +16,7 @@ set(${PROJECT_NAME}_HEADERS
 
 
 set(${PROJECT_NAME}_SOURCES
-    ${SOURCES_DIR}/system/main.cpp
+    ${SOURCES_DIR}/main.cpp
 )
 
 add_library(${PROJECT_NAME}
