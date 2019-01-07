@@ -45,7 +45,7 @@ private:
 class Pool
 {
 public:
-	Pool& Inst() const;
+	static Pool& Inst();
 
 	UnPtr<ConnUnit> Acquire();
 

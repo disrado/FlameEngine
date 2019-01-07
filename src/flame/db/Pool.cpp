@@ -57,7 +57,7 @@ ShPtr<DbConnection> ConnUnit::Get() const
 }
 
 
-Pool& Pool::Inst() const
+Pool& Pool::Inst()
 {
 	static Pool instance{ MinPoolSize };
 	return instance;
