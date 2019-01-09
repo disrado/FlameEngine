@@ -18,9 +18,11 @@ public:
 	Worker(UnPtr<ConnUnit> connection);
 	virtual ~Worker() = default;
 
+public:
+	void Commit() const;
+
 protected:
 	DbResult Execute(const std::string& query) const;
-	void Commit() const;
 	std::string Escape(const std::string& str) const;
 	
 private:

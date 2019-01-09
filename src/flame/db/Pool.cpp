@@ -18,10 +18,9 @@ std::string GetDbConfig()
 	return
 		"host=localhost "
 		"port=5432 "
-		"user=postgres "
-		"password=postgres "
-		"dbname=engine "
-		"connect_timeout=10";
+		"user=nik "
+		"password=nik "
+		"dbname=pvp";
 }
 
 
