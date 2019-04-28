@@ -11,12 +11,13 @@ add_executable(VisualTest
     ${VISUAL_TEST_SRC}
 )
 
+target_compile_features(VisualTest PUBLIC cxx_std_17)
+
 target_link_libraries(VisualTest
     PUBLIC
         ${CONAN_LIBS}
         system
         graphics
-
 )
 
 target_include_directories(VisualTest

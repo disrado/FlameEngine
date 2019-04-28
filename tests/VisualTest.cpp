@@ -1,10 +1,20 @@
-#include <system/Vector2.hpp>
+#include <memory>
+#include <string>
 
-#include <iostream>
+using namespace std::string_literals;
+
+#include <system/Color.hpp>
+#include <system/Size.hpp>
+#include <system/Vector2.hpp>
+#include <graphics/Render.hpp>
+#include <graphics/Window.hpp>
 
 int main()
 {
-    ae::Vector2<float> vec2(1.0, 2.0);
+    auto window{ std::make_unique<flm::Window>(
+        "game", flm::Vector2i{ 200, 200 }, flm::Size{ 1366, 768 }) };
 
-    std::cout << vec2.x << " " << vec2.y;
+    flm::Render render{ std::move(window), flm::Color{ 0, 0, 0, 255} };
+
+    return 0;
 }

@@ -4,8 +4,9 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/modules/db/src/pch.h",
-                "${workspaceFolder}/extern/libpqxx/include",
+                "${workspaceFolder}/modules/db/src/",
+                "${workspaceFolder}/external/libpqxx/include/",
+                "${workspaceFolder}/modules/graphics/src/",
                 "/home/nik/.conan/data/fmt/5.2.0/bincrafters/stable/package/56e0cf6d16ee57367a0661ab743f4e43b29223f8/include"
             ],
             "defines": [],

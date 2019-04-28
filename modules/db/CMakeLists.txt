@@ -14,9 +14,8 @@ set(${PROJECT_NAME}_MISC
 )
 
 add_library(${PROJECT_NAME} SHARED
-		${${PROJECT_NAME}_SOURCES}
-		${${PROJECT_NAME}_WORKERS_SOURCES}
-		${${PROJECT_NAME}_MISC}
+	${${PROJECT_NAME}_SOURCES}
+	${${PROJECT_NAME}_MISC}
 )
 
 add_library(flame::db ALIAS ${PROJECT_NAME})
@@ -45,7 +44,6 @@ target_include_directories(${PROJECT_NAME}
 	PUBLIC
 		${CONAN_LIBS}
 		${PROJECT_SOURCE_DIR}/include
-	PRIVATE
 		${PROJECT_SOURCE_DIR}/src
 )
 
