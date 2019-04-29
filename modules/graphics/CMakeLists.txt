@@ -6,7 +6,9 @@ include(cotire)
 
 set(${PROJECT_NAME}_SOURCES
 	src/Render.cpp
-   	src/Window.cpp
+	src/Sprite.cpp
+	src/Texture.cpp
+	src/Window.cpp
 )
 
 set(${PROJECT_NAME}_MISC

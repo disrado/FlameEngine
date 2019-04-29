@@ -7,7 +7,9 @@
                 "${workspaceFolder}/modules/db/src/",
                 "${workspaceFolder}/external/libpqxx/include/",
                 "${workspaceFolder}/modules/graphics/src/",
-                "/home/nik/.conan/data/fmt/5.2.0/bincrafters/stable/package/56e0cf6d16ee57367a0661ab743f4e43b29223f8/include"
+                "/home/nik/.conan/data/fmt/5.2.0/bincrafters/stable/package/56e0cf6d16ee57367a0661ab743f4e43b29223f8/include",
+                "/home/nik/.conan/data/sdl2/2.0.9/bincrafters/stable/package/a179bcb9792f4c101dc3016dab8c46e743da4da9/include",
+                "/home/nik/.conan/data/sdl2_image/2.0.4/bincrafters/stable/package/a2d0648ae814d29354a6dcda8f383b97af03288b/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",
