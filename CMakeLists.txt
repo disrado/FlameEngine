@@ -10,8 +10,11 @@ conan_cmake_run(CONANFILE conanfile.txt BASIC_SETUP CMAKE_TARGETS BUILD missing)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-add_subdirectory(modules/system)
+add_subdirectory(modules/ecs)
 add_subdirectory(modules/graphics)
+add_subdirectory(modules/system)
+add_subdirectory(modules/types)
+add_subdirectory(modules/utils)
 
 if (ENABLE_TESTING)
 	enable_testing()

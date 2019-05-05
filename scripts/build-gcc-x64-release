@@ -49,6 +49,7 @@ CPU_COUNT=`nproc --all`
 
 PrintInfoMsg "[Make] Building the project..."
 make -j $CPU_COUNT
+CheckError "[Make] Failed to build the project."
 
 PrintInfoMsg "Project has been built successfully!"
 
