@@ -8,14 +8,13 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/VisualTest.cpp",
+            "program": "${workspaceFolder}/build/gcc-x64-Release/bin/VisualTest",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": true,
             "MIMode": "gdb",
-            "preLaunchTask": "build debug",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",

@@ -2,21 +2,20 @@ cmake_minimum_required(VERSION 3.10)
 
 project(tests LANGUAGES CXX)
 
-find_package(SDL2 REQUIRED)
-include_directories(${SDL2_INCLUDE_DIR})
-
 file(GLOB VISUAL_TEST_SRC "VisualTest.cpp")
 
 add_executable(VisualTest
     ${VISUAL_TEST_SRC}
 )
 
+target_compile_features(VisualTest PUBLIC cxx_std_17)
+
 target_link_libraries(VisualTest
     PUBLIC
         ${CONAN_LIBS}
+        stdc++fs
         system
         graphics
-        utils
 )
 
 target_include_directories(VisualTest
@@ -28,6 +27,8 @@ target_include_directories(VisualTest
 function(create_test name library)
     add_executable(${name} ${name}.cpp)
 
+    target_compile_features(${name} PUBLIC cxx_std_17)
+
     target_include_directories(${name}
         PUBLIC
             ${CONAN_LIBS}
@@ -35,7 +36,6 @@ function(create_test name library)
 
     target_link_libraries(${name}
         PUBLIC
-            ${SDL2_LIBRARY}
             ${CONAN_LIBS}
             ${library}
     )

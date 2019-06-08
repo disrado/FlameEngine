@@ -1,7 +1,7 @@
-#ifndef _VECTOR2_HPP_
-#define _VECTOR2_HPP_
+#pragma once
 
-namespace ae {
+namespace flm
+{
 
 template<typename T>
 class Vector2 {
@@ -62,6 +62,5 @@ bool operator !=(const Vector2<T>& left, const Vector2<T>& right);
 typedef Vector2<int>   Vector2i;
 typedef Vector2<float> Vector2f;
 
-}
 
-#endif // _VECTOR2_HPP_
+} // flm
