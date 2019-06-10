@@ -2,22 +2,19 @@
 
 #include <util/Types.hpp>
 
-#include <iostream>
-
 namespace flm
 {
 
-class IdGenerator final
+class IdGen final
 {
 public:
 	template<typename T>
 	static Id TypeId() noexcept
 	{
-		static Id newId{ 0 };
+		static Id newId{ UniqueId() };
 
-		std::cout << "ID: " << newId << std::endl;
 
-		return newId++;
+		return newId;
 	}
 	
 	static Id UniqueId() noexcept

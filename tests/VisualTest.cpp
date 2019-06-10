@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <map>
 #include <memory>
 #include <string>
@@ -9,6 +10,7 @@ using namespace std::string_literals;
 #include <SDL2/SDL_image.h>
 
 #include <util/Types.hpp>
+#include <util/IdGenerator.hpp>
 #include <system/Vector2.hpp>
 #include <system/Size.hpp>
 #include <ecs/Components.hpp>
@@ -24,24 +26,31 @@ using namespace std::string_literals;
 int main()
 {
     auto transformComponent{ std::make_shared<flm::Transform>() };
+    {
+        transformComponent->rotation = 10.2;
+    }
+
     auto textureComponent{ std::make_shared<flm::Texture>() };
+    {
+    }
 
     flm::Entity entity;
-    std::cout << "There 1" << std::endl;
     auto id1{ entity.AddComponent<flm::Transform>(transformComponent) };
-    std::cout << "There 2" << std::endl;
     auto id2{ entity.AddComponent<flm::Texture>(textureComponent) };
 
-    auto ptr{ entity.GetComponent<flm::Transform>(id1) };
-
-
-    if (ptr) {
-        std::cout << ptr->m_rotation << std::endl;
+    if ( auto ptr{ entity.GetComponent<flm::Transform>(id1) }; ptr) {
+        std::cout << ptr->rotation << std::endl;
     } else {
         std::cout << "There is nothing to do" << std::endl;
     }
 
+    entity.RemoveComponent(id1);
 
+    if ( auto ptr{ entity.GetComponent<flm::Transform>(id1) }; ptr) {
+        std::cout << ptr->rotation << std::endl;
+    } else {
+        std::cout << "There is nothing to do" << std::endl;
+    }
 
 
     // SDL_Init(SDL_INIT_EVERYTHING);

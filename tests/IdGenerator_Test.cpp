@@ -1,4 +1,4 @@
-#include <util/IdGenerator.hpp>
+#include <util/IdGen.hpp>
 
 #include <gtest/gtest.h>
 
@@ -17,11 +17,11 @@ TEST(Vector2Test, Construction)
 	}
 
 	for (size_t i{ 0 }; i < 100; ++i) {
-		firstTypeIds.push_back(flm::IdGenerator::TypeId<int>());
+		firstTypeIds.push_back(flm::IdGen::TypeId<int>());
 	}
 
 	for (size_t i{ 0 }; i < 100; ++i) {
-		secondTypeIds.push_back(flm::IdGenerator::TypeId<float>());
+		secondTypeIds.push_back(flm::IdGen::TypeId<float>());
 	}
 
 	ASSERT_EQ(validIds, firstTypeIds);

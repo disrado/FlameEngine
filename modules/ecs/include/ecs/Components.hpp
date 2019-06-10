@@ -6,16 +6,16 @@ namespace flm
 
 struct Transform
 {
-    Vector2f m_position = { 0, 0 };
-    Vector2f m_scale = { 1, 1 };
-    float m_rotation = 0;
+    Vector2f position = { 0, 0 };
+    Vector2f scale = { 1, 1 };
+    float rotation = 0;
 };
 
 
 struct Texture
 {
-    SDL_Texture* m_texture = nullptr;
-    Size m_size = { 0, 0 };
+    SDL_Texture* texture = nullptr;
+    Size size = { 0, 0 };
 };
 
 

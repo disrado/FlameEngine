@@ -1,11 +1,5 @@
 #pragma once
 
-
-#include <util/IdGenerator.hpp>
-
-#include <iostream>
-
-
 namespace flm
 {
 
@@ -17,54 +11,90 @@ public:
     Id AddComponent(std::shared_ptr<T> component);
 
     template<typename T>
-    void RemoveComponent(const Id id);
-    
+    bool RemoveComponent();
+
+    bool RemoveComponent(const Id id);
+
+    template<typename T>
+    std::shared_ptr<T> GetComponent() const;
+
     template<typename T>
     std::shared_ptr<T> GetComponent(const Id id) const;
 
+public:
+    const Id m_id = IdGen::UniqueId();
+
 private:
-    Id m_id;
-    std::map<Id, std::map<Id, std::shared_ptr<void>>> m_components;
+    std::map<Id, std::shared_ptr<void>> m_components;
+    std::map<Id, Id> m_componentTypes;
 };
 
 
 template<typename T>
 Id Entity::AddComponent(std::shared_ptr<T> component)
 {
-    const auto id{ IdGenerator::UniqueId() };
-    const auto res{ m_components[IdGenerator::TypeId<T>()].insert({ id, component }) };
+    const auto id{ IdGen::UniqueId() };
 
-    if (!res.second) {
-        throw std::runtime_error("Unable to add component to entity");
-    }
+    m_components.insert({ id, component });
+    m_componentTypes[IdGen::TypeId<T>()] = id;
 
     return id;
 }
 
 
 template<typename T>
-void Entity::RemoveComponent(const Id id)
+bool Entity::RemoveComponent()
 {
-    m_components.at(IdGenerator::TypeId<T>()).erase(id);
+    const auto typeId{ IdGen::TypeId<T>() };
+
+    if (m_componentTypes.count(typeId)) {
+        if (m_components.erase(m_componentTypes[typeId]) + m_componentTypes.erase(typeId)) {
+            return true;
+        }
+        
+        throw std::runtime_error("Entity corrupted");
+    }
+
+    return false;
+}
+
+
+bool Entity::RemoveComponent(const Id id)
+{
+    if (m_components.erase(id)) {
+        auto it{ std::find_if(std::begin(m_componentTypes), std::end(m_componentTypes),
+            [id] (auto item) { return item.second == id; }
+        ) };
+
+        if (m_componentTypes.erase(it->first) == 0) {
+            throw std::runtime_error("Entity corrupted");
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
+
+template<typename T>
+std::shared_ptr<T> Entity::GetComponent() const
+{
+    const auto typeId{ IdGen::TypeId<T>() };
+
+    if (m_componentTypes.count(typeId)) {
+        return std::static_pointer_cast<T>(m_components.at(m_componentTypes[typeId]));
+    }
+
+    return nullptr;
 }
 
 
 template<typename T>
 std::shared_ptr<T> Entity::GetComponent(const Id id) const
 {
-    for (auto group : m_components) {
-        std::cout << "Group ID: " << group.first << std::endl;
-        for (auto component : group.second) {
-            std::cout << "Component id: " << component.first << std::endl;
-        }
-    }
-
-    if (auto it{ m_components.find(IdGenerator::TypeId<T>()) }; it != std::end(m_components)) {
-        std::cout << "Here1" << std::endl;
-        if (auto component{ it->second.find(id) }; component != std::end(it->second)) {
-            std::cout << "Here2" << std::endl;
-            return std::static_pointer_cast<T>(component->second);
-        }
+    if (m_components.count(id)) {
+        return std::static_pointer_cast<T>(m_components.at(id));
     }
 
     return nullptr;

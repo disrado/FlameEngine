@@ -1,13 +1,13 @@
-#include "pch.hpp"
+// #include "pch.hpp"
 
-#include "ecs/System.hpp"
+// #include "ecs/System.hpp"
 
-namespace flm
-{
-
-
-void Update(const float)
-{}
+// namespace flm
+// {
 
 
-} // flm
+// void Update(const float)
+// {}
+
+
+// } // flm
