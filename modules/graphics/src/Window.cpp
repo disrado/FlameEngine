@@ -6,42 +6,42 @@ namespace flm
 {
 
 Window::Window(std::string title, Vector2i position, Size size)
-	: m_window{ SDL_CreateWindow(
-		title.c_str(),
-		position.x,
-		position.y,
-		size.width,
-		size.height,
-		6 // SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN
-	) }
+    : m_window{ SDL_CreateWindow(
+        title.c_str(),
+        position.x,
+        position.y,
+        size.width,
+        size.height,
+        6 // SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN
+    ) }
 {
-	if (!m_window) {
-		throw std::runtime_error("Cannot create window: "s + SDL_GetError());
-	}
+    if (!m_window) {
+        throw std::runtime_error("Cannot create window: "s + SDL_GetError());
+    }
 }
 
 
 Window::~Window()
 {
-	SDL_DestroyWindow(m_window);
+    SDL_DestroyWindow(m_window);
 }
 
 
 SDL_Window* Window::Get() const
 {
-	return m_window;
+    return m_window;
 }
 
 
 Vector2i Window::GetPosition() const
 {
-	return m_position;
+    return m_position;
 }
 
 
 Size Window::GetSize() const
 {
-	return m_size;
+    return m_size;
 }
 
 } // flm

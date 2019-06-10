@@ -16,6 +16,7 @@ target_link_libraries(VisualTest
         stdc++fs
         system
         graphics
+        ecs
 )
 
 target_include_directories(VisualTest
@@ -44,4 +45,3 @@ function(create_test name library)
 endfunction()
 
 create_test(Vector2_Test system)
-create_test(IdGenerator_Test utils)

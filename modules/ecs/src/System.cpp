@@ -1,12 +1,13 @@
 #include "pch.hpp"
 
-#include "ecs//System.hpp"
+#include "ecs/System.hpp"
 
-namespace flm::ecs
+namespace flm
 {
 
-void Update(const float dt)
+
+void Update(const float)
 {}
 
 
-} // flm::ecs
+} // flm

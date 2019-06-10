@@ -50,7 +50,9 @@
         "__config": "cpp",
         "__nullptr": "cpp",
         "algorithm": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "codecvt": "cpp",
+        "iomanip": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

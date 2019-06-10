@@ -1,18 +1,22 @@
 #pragma once
 
-#include <cstdint>
-#include <types/Types.hpp>
+#include <util/Types.hpp>
 
-namespace flm::utils
+#include <iostream>
+
+namespace flm
 {
 
-class IdGenerator
+class IdGenerator final
 {
 public:
 	template<typename T>
 	static Id TypeId() noexcept
 	{
 		static Id newId{ 0 };
+
+		std::cout << "ID: " << newId << std::endl;
+
 		return newId++;
 	}
 	
@@ -23,4 +27,4 @@ public:
 	}
 };
 
-}	// namespace flm::utils
+}	// namespace flm

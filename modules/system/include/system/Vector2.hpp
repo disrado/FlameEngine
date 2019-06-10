@@ -59,8 +59,8 @@ bool operator !=(const Vector2<T>& left, const Vector2<T>& right);
 
 #include <system/Vector2.inl>
 
-typedef Vector2<int>   Vector2i;
-typedef Vector2<float> Vector2f;
+using Vector2i = Vector2<int>;
+using Vector2f = Vector2<float>;
 
 
 } // flm
