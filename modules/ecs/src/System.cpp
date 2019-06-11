@@ -1,13 +1,11 @@
-// #include "pch.hpp"
+#include "pch.hpp"
 
-// #include "ecs/System.hpp"
+#include "ecs/System.hpp"
 
-// namespace flm
-// {
+namespace flm
+{
 
+System::~System()
+{}
 
-// void Update(const float)
-// {}
-
-
-// } // flm
+} // namepsace flm

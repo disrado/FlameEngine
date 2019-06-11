@@ -5,11 +5,12 @@ project(util LANGUAGES CXX)
 include(cotire)
 
 set(${PROJECT_NAME}_HEADERS
+	include/util/Id.hpp
 	include/util/Types.hpp
 )
 
 set(${PROJECT_NAME}_SOURCES
-	src/IdGenerator.cpp
+	src/Id.cpp
 )
 
 set(${PROJECT_NAME}_MISC

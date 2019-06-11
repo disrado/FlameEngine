@@ -4,9 +4,18 @@ project(graphics LANGUAGES CXX)
 
 include(cotire)
 
+set(${PROJECT_NAME}_HEADERS
+    include/graphics/Components.hpp
+    include/graphics/DrawSystem.hpp
+    include/graphics/Render.hpp
+    include/graphics/Texture.hpp
+    include/graphics/Window.hpp
+)
+
 set(${PROJECT_NAME}_SOURCES
+    src/DrawSystem.cpp
     src/Render.cpp
-    src/Sprite.cpp
+    src/Texture.cpp
     src/Window.cpp
 )
 
@@ -15,6 +24,7 @@ set(${PROJECT_NAME}_MISC
 )
 
 add_library(${PROJECT_NAME} SHARED
+    ${${PROJECT_NAME}_HEADERS}
     ${${PROJECT_NAME}_SOURCES}
     ${${PROJECT_NAME}_MISC}
 )
@@ -37,6 +47,7 @@ target_link_libraries(${PROJECT_NAME}
     PUBLIC
         ${CONAN_LIBS}
         system
+        ecs
 )
 
 target_include_directories(${PROJECT_NAME}

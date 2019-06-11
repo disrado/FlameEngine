@@ -5,7 +5,8 @@ project(ecs LANGUAGES CXX)
 include(cotire)
 
 set(${PROJECT_NAME}_HEADERS
-    include/ecs/Components.hpp
+    include/ecs/Entity.hpp
+    include/ecs/System.hpp
 )
 
 set(${PROJECT_NAME}_SOURCES

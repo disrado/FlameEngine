@@ -1,6 +1,7 @@
 #include "pch.hpp"
 
 #include "graphics/Render.hpp"
+
 #include "graphics/Window.hpp"
 
 namespace flm
@@ -29,4 +30,4 @@ SDL_Renderer* Render::Get() const
     return m_render;
 }
 
-} // flm
+} // namepsace flm

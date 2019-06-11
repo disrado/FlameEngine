@@ -44,4 +44,4 @@ Size Window::GetSize() const
     return m_size;
 }
 
-} // flm
+} // namepsace flm

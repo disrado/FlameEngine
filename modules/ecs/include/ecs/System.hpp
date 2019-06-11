@@ -1,27 +1,17 @@
-// #pragma once
+#pragma once
 
-// namespace flm
-// {
+namespace flm
+{
 
-// template<typename T>
-// class System
-// {
-// public:
+class Entity;
 
-    
-//     virtual void Update(const float dt);
+class System
+{
+public:
+    virtual ~System();
 
-// private:
-//     std::vector<std::shared_ptr<T>> m_components;
-// };
-
-// template<typename T>
-// template<typename ...Args>
-// std::shared_ptr<T> System<T>::CreateComponent(Args... args)
-// {
-//     const auto it{ m_components.push_back(std::make_shared<T>(args...)) };
-//     return *it;
-// }
+    virtual void Update(const float dt) = 0;
+};
 
 
-// } // flm
+} // namepsace flm

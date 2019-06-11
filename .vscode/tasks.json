@@ -7,15 +7,15 @@
             "label": "build release",
             "type": "shell",
             "command": "cd ${workspaceFolder}/scripts/ && ./build-gcc-x64-release",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
         },
         {
             "label": "build debug",
             "type": "shell",
-            "command": "cd ${workspaceFolder}/scripts/ && ./build-gcc-x64-debug"
+            "command": "cd ${workspaceFolder}/scripts/ && ./build-gcc-x64-debug",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }

@@ -1,23 +1,23 @@
-// #pragma once
+#pragma once
 
-// struct SDL_Texture;
+struct SDL_Texture;
 
-// namespace flm
-// {
+namespace flm
+{
 
-// class Render;
+class Render;
 
-// class Texture
-// {
-// public:
-//     Texture(std::filesystem::path path, std::shared_ptr<Render> render);
+class Texture
+{
+public:
+    Texture(std::filesystem::path path, std::shared_ptr<Render> render);
     
-//     Size GetSize() const;
-//     SDL_Texture* Get() const;
+    Size GetSize() const;
+    SDL_Texture* Get() const;
 
-// private:
-//     SDL_Texture* m_texture = nullptr;
-//     Size m_size = { 0, 0 };
-// };
+private:
+    SDL_Texture* m_texture = nullptr;
+    Size m_size = { 0, 0 };
+};
 
-// } // flm
+} // namepsace flm

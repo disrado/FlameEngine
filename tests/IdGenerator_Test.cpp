@@ -17,11 +17,11 @@ TEST(Vector2Test, Construction)
 	}
 
 	for (size_t i{ 0 }; i < 100; ++i) {
-		firstTypeIds.push_back(flm::IdGen::TypeId<int>());
+		firstTypeIds.push_back(flm::TypeId<int>());
 	}
 
 	for (size_t i{ 0 }; i < 100; ++i) {
-		secondTypeIds.push_back(flm::IdGen::TypeId<float>());
+		secondTypeIds.push_back(flm::TypeId<float>());
 	}
 
 	ASSERT_EQ(validIds, firstTypeIds);

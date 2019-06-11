@@ -21,4 +21,4 @@ private:
     Size m_size;
 };
 
-} // flm
+} // namepsace flm

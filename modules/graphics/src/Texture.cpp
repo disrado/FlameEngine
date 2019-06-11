@@ -1,29 +1,30 @@
-// #include "pch.hpp"
+#include "pch.hpp"
 
-// #include "graphics/Texture.hpp"
-// #include "graphics/Render.hpp"
+#include "graphics/Texture.hpp"
 
-// namespace flm
-// {
+#include "graphics/Render.hpp"
 
-// Texture::Texture(std::filesystem::path path, std::shared_ptr<Render> render)
-// {
-//     if (!(m_texture = IMG_LoadTexture(render->Get(), path.c_str()))) {
-//         throw std::runtime_error{ "Cannot load texture from "s + path.c_str() };
-//     }
+namespace flm
+{
 
-//     SDL_QueryTexture(m_texture, nullptr, nullptr, &m_size.width, &m_size.height);
-// }
+Texture::Texture(std::filesystem::path path, std::shared_ptr<Render> render)
+{
+    if (!(m_texture = IMG_LoadTexture(render->Get(), path.c_str()))) {
+        throw std::runtime_error{ "Cannot load texture from "s + path.c_str() };
+    }
 
-
-// Size Texture::GetSize() const {
-//     return m_size;
-// }
+    SDL_QueryTexture(m_texture, nullptr, nullptr, &m_size.width, &m_size.height);
+}
 
 
-// SDL_Texture* Texture::Get() const
-// {
-//     return m_texture;
-// }
+Size Texture::GetSize() const {
+    return m_size;
+}
 
-// } // flm
+
+SDL_Texture* Texture::Get() const
+{
+    return m_texture;
+}
+
+} // namepsace flm

@@ -4,6 +4,12 @@ project(system LANGUAGES CXX)
 
 include(cotire)
 
+set(${PROJECT_NAME}_HEADERS
+	include/system/Color.hpp
+	include/system/Size.hpp
+	include/system/Vector2.hpp
+)
+
 set(${PROJECT_NAME}_SOURCES
 	src/main.cpp
 )
@@ -13,6 +19,7 @@ set(${PROJECT_NAME}_MISC
 )
 
 add_library(${PROJECT_NAME} SHARED
+	${${PROJECT_NAME}_HEADERS}
 	${${PROJECT_NAME}_SOURCES}
 	${${PROJECT_NAME}_WORKERS_SOURCES}
 	${${PROJECT_NAME}_MISC}

@@ -8,7 +8,7 @@
 #include <vector>
 
 
-// flame::util
-#include <system/Vector2.hpp>
-#include <util/IdGenerator.hpp>
+// flame/util
+
+#include <util/Id.hpp>
 #include <util/Types.hpp>
