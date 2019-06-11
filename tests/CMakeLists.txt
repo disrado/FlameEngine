@@ -25,8 +25,8 @@ target_include_directories(VisualTest
         ${CONAN_LIBS}
 )
 
-function(create_test name library)
-    add_executable(${name} ${name}.cpp)
+function(create_test name file library)
+    add_executable(${name} ${file})
 
     target_compile_features(${name} PUBLIC cxx_std_17)
 
@@ -44,4 +44,11 @@ function(create_test name library)
     add_test(NAME ${name} COMMAND $<TARGET_FILE:${name}>)
 endfunction()
 
-create_test(Vector2_Test system)
+create_test(EntityTest       ecs/EntityTest.cpp          ecs)
+create_test(ComponentsTest   graphics/ComponentsTest.cpp graphics)
+create_test(DrawSystemTest   graphics/DrawSystemTest.cpp graphics)
+create_test(RenderTest       graphics/RenderTest.cpp     graphics)
+create_test(TextureTest      graphics/TextureTest.cpp    graphics)
+create_test(WindowTest       graphics/WindowTest.cpp     graphics)
+create_test(Vector2Test      system/Vector2Test.cpp      system)
+create_test(IdGenerationTest util/IdGenerationTest.cpp   util)

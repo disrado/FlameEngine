@@ -18,9 +18,6 @@ public:
     std::shared_ptr<T> GetComponent() const;
 
     template<typename T>
-    std::shared_ptr<T> Test() const;
-
-    template<typename T>
     std::shared_ptr<T> GetComponent(const Id id) const;
 
 public:

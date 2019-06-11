@@ -1,9 +1,6 @@
+#include "pch.hpp"
+
 #include <system/Vector2.hpp>
-
-#include <gtest/gtest.h>
-
-#include <memory>
-
 
 TEST(Vector2Test, Construction)
 {
