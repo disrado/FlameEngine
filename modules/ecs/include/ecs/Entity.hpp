@@ -1,5 +1,10 @@
 #pragma once
 
+#include <unordered_map>
+
+#include <util/Id.hpp>
+#include <util/Types.hpp>
+
 namespace flm
 {
 

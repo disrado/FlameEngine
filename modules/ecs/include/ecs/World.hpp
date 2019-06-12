@@ -1,5 +1,12 @@
 #pragma once
 
+#include <algorithm>
+#include <memory>
+#include <vector>
+
+#include <util/Id.hpp>
+#include <util/Types.hpp>
+
 #include <ecs/System.hpp>
 
 namespace flm

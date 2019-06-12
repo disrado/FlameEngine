@@ -3,8 +3,6 @@
 namespace flm
 {
 
-class Entity;
-
 class System
 {
 public:

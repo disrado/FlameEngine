@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.10)
 
 project(ecs LANGUAGES CXX)
 
-include(cotire)
-
 set(${PROJECT_NAME}_HEADERS
     include/ecs/Entity.hpp
     include/ecs/System.hpp
@@ -15,14 +13,9 @@ set(${PROJECT_NAME}_SOURCES
     src/World.cpp
 )
 
-set(${PROJECT_NAME}_MISC
-    src/pch.hpp
-)
-
 add_library(${PROJECT_NAME} SHARED
     ${${PROJECT_NAME}_HEADERS}
     ${${PROJECT_NAME}_SOURCES}
-    ${${PROJECT_NAME}_MISC}
 )
 
 add_library(flame::ecs ALIAS ${PROJECT_NAME})
@@ -50,7 +43,3 @@ target_include_directories(${PROJECT_NAME}
         ${PROJECT_SOURCE_DIR}/include
         ${PROJECT_SOURCE_DIR}/src
 )
-
-set(COTIRE_MINIMUM_NUMBER_OF_TARGET_SOURCES 1)
-set_target_properties(${PROJECT_NAME} PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "src/pch.hpp")
-cotire(${PROJECT_NAME})
