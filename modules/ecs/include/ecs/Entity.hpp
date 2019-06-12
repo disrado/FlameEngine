@@ -8,7 +8,7 @@
 namespace flm
 {
 
-class Entity
+class Entity final
 {
 public:
     template<typename T>
@@ -24,7 +24,7 @@ public:
     const Id id = UniqueId();
 
 private:
-    std::unordered_mapmap<Id, std::shared_ptr<void>> m_components;
+    std::unordered_map<Id, std::shared_ptr<void>> m_components;
 };
 
 #include "../../src/Entity.inl"
