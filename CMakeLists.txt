@@ -13,8 +13,3 @@ conan_basic_setup()
 add_subdirectory(modules/util)
 add_subdirectory(modules/system)
 add_subdirectory(modules/ecs)
-
-if (ENABLE_TESTING)
-	enable_testing()
-	add_subdirectory(tests)
-endif ()
