@@ -53,7 +53,8 @@
         "cinttypes": "cpp",
         "codecvt": "cpp",
         "iomanip": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "map": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
