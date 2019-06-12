@@ -7,11 +7,12 @@ include(cotire)
 set(${PROJECT_NAME}_HEADERS
     include/ecs/Entity.hpp
     include/ecs/System.hpp
+    include/ecs/World.hpp
 )
 
 set(${PROJECT_NAME}_SOURCES
-    src/Entity.cpp
     src/System.cpp
+    src/World.cpp
 )
 
 set(${PROJECT_NAME}_MISC

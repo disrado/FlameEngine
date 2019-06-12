@@ -10,7 +10,7 @@ class System
 public:
     virtual ~System();
 
-    virtual void Update(const float dt) = 0;
+    virtual void Update(float dt) = 0;
 };
 
 
