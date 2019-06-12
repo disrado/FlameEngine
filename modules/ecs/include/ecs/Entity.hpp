@@ -12,7 +12,7 @@ class Entity final
 {
 public:
     template<typename T>
-    Id AddComponent(std::shared_ptr<T> component);
+    bool AddComponent(std::shared_ptr<T> component);
 
     template<typename T>
     bool RemoveComponent();
