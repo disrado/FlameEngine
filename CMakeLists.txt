@@ -11,5 +11,4 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
 add_subdirectory(modules/util)
-add_subdirectory(modules/system)
 add_subdirectory(modules/ecs)
