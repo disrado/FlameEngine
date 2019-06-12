@@ -19,7 +19,6 @@ add_subdirectory(modules/db)
 add_subdirectory(modules/util)
 add_subdirectory(modules/system)
 add_subdirectory(modules/ecs)
-add_subdirectory(modules/graphics)
 
 if (ENABLE_TESTING)
 	enable_testing()
