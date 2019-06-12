@@ -10,11 +10,6 @@ conan_cmake_run(CONANFILE conanfile.txt BASIC_SETUP CMAKE_TARGETS BUILD missing)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-set(EXTERNAL_DIR ${CMAKE_SOURCE_DIR}/external)
-
-add_subdirectory(external/libpqxx)
-add_subdirectory(external/timer)
-add_subdirectory(modules/db)
 add_subdirectory(modules/util)
 add_subdirectory(modules/system)
 add_subdirectory(modules/ecs)
