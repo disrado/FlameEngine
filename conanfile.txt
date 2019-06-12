@@ -1,12 +1,7 @@
 [requires]
-fmt/5.2.0@bincrafters/stable
 gtest/1.8.0@bincrafters/stable
-sdl2/2.0.9@bincrafters/stable
-sdl2_image/2.0.4@bincrafters/stable
 
 [options]
-sdl2:shared=True
-gtest:shared=False
 
 [generators]
 cmake
