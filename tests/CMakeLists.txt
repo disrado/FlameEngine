@@ -24,3 +24,5 @@ function(create_test name file library)
 endfunction()
 
 create_test(EntityTest ecs/EntityTest.cpp ecs)
+create_test(WorldTest ecs/WorldTest.cpp ecs)
+create_test(NodeTest scene_graph/NodeTest.cpp scene_graph)

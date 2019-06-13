@@ -1,5 +1,20 @@
 #include "pch.hpp"
 
-TEST(Entity, Construction)
+TEST(EntityTest, AddComponent)
+{
+}
+
+
+TEST(EntityTest, RemoveComponent)
+{
+}
+
+
+TEST(EntityTest, GetComponent)
+{
+}
+
+
+TEST(EntityTest, GetId)
 {
 }
