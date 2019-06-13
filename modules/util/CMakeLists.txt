@@ -37,15 +37,8 @@ target_compile_options(${PROJECT_NAME}
 			-Wall -Wextra -Werror -Wpedantic -pedantic-errors -pipe>
 )
 
-target_link_libraries(${PROJECT_NAME}
-	PUBLIC
-		${CONAN_LIBS}
-        system
-)
-
 target_include_directories(${PROJECT_NAME}
 	PUBLIC
-		${CONAN_LIBS}
 		${PROJECT_SOURCE_DIR}/include
 		${PROJECT_SOURCE_DIR}/src
 )

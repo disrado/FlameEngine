@@ -1,16 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(ecs LANGUAGES CXX)
+project(scene_graph LANGUAGES CXX)
 
 set(${PROJECT_NAME}_HEADERS
-    include/ecs/Entity.hpp
-    include/ecs/System.hpp
-    include/ecs/World.hpp
+    include/scene_graph/Node.hpp
 )
 
 set(${PROJECT_NAME}_SOURCES
-    src/System.cpp
-    src/World.cpp
+    src/Node.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED
@@ -18,7 +15,7 @@ add_library(${PROJECT_NAME} SHARED
     ${${PROJECT_NAME}_SOURCES}
 )
 
-add_library(flame::ecs ALIAS ${PROJECT_NAME})
+add_library(flame::scene_graph ALIAS ${PROJECT_NAME})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
@@ -35,6 +32,7 @@ target_compile_options(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
         util
+        ecs
 )
 
 target_include_directories(${PROJECT_NAME}

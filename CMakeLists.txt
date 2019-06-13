@@ -12,3 +12,9 @@ conan_basic_setup()
 
 add_subdirectory(modules/util)
 add_subdirectory(modules/ecs)
+add_subdirectory(modules/scene_graph)
+
+if (ENABLE_TESTING)
+    enable_testing()
+    add_subdirectory(tests)
+endif ()
